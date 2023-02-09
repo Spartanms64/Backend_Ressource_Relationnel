@@ -1,6 +1,6 @@
 ﻿namespace Backend_Ressource_Relationnel.Models
 {
-    public class Resource
+    public class Ressource
     {
     }
 }
