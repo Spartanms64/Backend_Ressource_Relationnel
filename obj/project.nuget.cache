@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "JLza27TGY9935+oS2KLW62XW8t6+SbCtOZDcaeDJqHLC/cv3nnHcVcndfmFJcM1LhjeGFmN1d1FHtDwFngGQ+g==",
+  "success": true,
+  "projectFilePath": "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\esteb\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\esteb\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\esteb\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\esteb\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\esteb\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\esteb\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
