@@ -18,6 +18,7 @@ namespace Backend_Ressource_Relationnel
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                // Test API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
