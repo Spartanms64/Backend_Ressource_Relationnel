@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj": {}
+    "C:\\Users\\anouk\\Source\\Repos\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj": {}
   },
   "projects": {
-    "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj": {
+    "C:\\Users\\anouk\\Source\\Repos\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj",
+        "projectUniqueName": "C:\\Users\\anouk\\Source\\Repos\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj",
         "projectName": "Backend_Ressource_Relationnel",
-        "projectPath": "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj",
-        "packagesPath": "C:\\Users\\esteb\\.nuget\\packages\\",
-        "outputPath": "T:\\Etude Superieure\\5.CESI\\3.Projet\\Web_Application_Ressource_Relationnel\\Backend_Ressource_Relationnel\\obj\\",
+        "projectPath": "C:\\Users\\anouk\\Source\\Repos\\Backend_Ressource_Relationnel\\Backend_Ressource_Relationnel.csproj",
+        "packagesPath": "C:\\Users\\anouk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\anouk\\Source\\Repos\\Backend_Ressource_Relationnel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\esteb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anouk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,6 +44,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.13, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -69,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
