@@ -30,3 +30,5 @@ T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backen
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.pdb
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.genruntimeconfig.cache
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\ref\Backend_Ressource_Relationnel.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.Properties.Resources.resources
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.csproj.GenerateResource.cache
