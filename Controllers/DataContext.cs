@@ -25,6 +25,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             optionsBuilder.UseMySQL("server=mysql-ressourcesre.alwaysdata.net;database=ressourcesre_bdd;user=299632;password=cda2022;Encrypt=true;");
         }
 
+
         //****** Mise à jour classe + BDD *****//
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
