@@ -2,6 +2,8 @@
 
 using Backend_Ressource_Relationnel.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 #endregion
 namespace Backend_Ressource_Relationnel.Controllers
 {
@@ -18,7 +20,15 @@ namespace Backend_Ressource_Relationnel.Controllers
         public DbSet<Ressource> ressources { get; set; }
         public DbSet<Models.Type> types { get; set; }
 
-        
+        public DataContext()
+        {
+            //Database.EnsureCreated();// Créer table si non créer
+            var databaseCreator = Database.GetService<IRelationalDatabaseCreator>();//.GetService<IRelationalDatabaseCreator>();
+            databaseCreator.CreateTables();
+
+        }
+
+
         //**** Option de connexion BDD ****//
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +48,13 @@ namespace Backend_Ressource_Relationnel.Controllers
             modelBuilder.Entity<Relation>().ToTable("relation");
             modelBuilder.Entity<Ressource>().ToTable("ressource");
             modelBuilder.Entity<Models.Type>().ToTable("model");
+
+            // Test ecriture sur une table
+            modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
+                new Comment() { Id = 1, CreatedDate = new DateTime(), content = "test ecriture BDD" });
+        
+        
+        
         }
 
     }
