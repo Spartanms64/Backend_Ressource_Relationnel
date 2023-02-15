@@ -43,7 +43,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             modelBuilder.Entity<Category>().ToTable("category");
             modelBuilder.Entity<User>().ToTable("user");
             modelBuilder.Entity<Role>().ToTable("role");
-            modelBuilder.Entity<Comment>().ToTable("comment");
+            //modelBuilder.Entity<Comment>().ToTable("comment");
             modelBuilder.Entity<Favorite>().ToTable("favorite");
             modelBuilder.Entity<Relation>().ToTable("relation");
             modelBuilder.Entity<Ressource>().ToTable("ressource");
