@@ -1,83 +1,98 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Backend_Ressource_Relationnel.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
-    public class TypeController : Controller
+    public class TypeController : ControllerBase
     {
-        // GET: TypeController
-        public ActionResult Index()
+
+        private readonly DataContext _context;
+
+        public TypeController(DataContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: TypeController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/<RessourceController>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Backend_Ressource_Relationnel.Models.Type>>> GetType()
         {
-            return View();
+            return await _context.types.ToListAsync();
         }
 
-        // GET: TypeController/Create
-        public ActionResult Create()
+        // GET api/<RessourceController>/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.Type>> GetType(int id)
         {
-            return View();
+            var types = await _context.types.FindAsync(id);
+            if (types == null)
+            {
+                return NotFound();
+            }
+
+            return types;
         }
 
-        // POST: TypeController/Create
+        // POST api/<RessourceController>
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.Type>> PostType(Backend_Ressource_Relationnel.Models.Type types)
         {
+            _context.types.Add(types);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetRole", new { id = types.Id }, types);
+        }
+
+        // PUT api/<RessourceController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutType(int id, Backend_Ressource_Relationnel.Models.Type types)
+        {
+            if (id != types.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(types).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!TypeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return NoContent();
         }
 
-        // GET: TypeController/Edit/5
-        public ActionResult Edit(int id)
+        // DELETE api/<RessourceController>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteType(int id)
         {
-            return View();
+            var types = await _context.types.FindAsync(id);
+            if (types == null)
+            {
+                return NotFound();
+            }
+
+            _context.types.Remove(types);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        // POST: TypeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        private bool TypeExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TypeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TypeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _context.types.Any(e => e.Id == id);
         }
     }
 }

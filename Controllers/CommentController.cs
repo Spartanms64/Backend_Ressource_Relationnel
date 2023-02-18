@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
-    public class CommentController : Controller
+    public class CommentController : ControllerBase
     {
         private readonly DataContext _context;
 

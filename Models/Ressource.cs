@@ -18,7 +18,7 @@ namespace Backend_Ressource_Relationnel.Models
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public int RelationId { get; set; } 
-        public virtual Relation Relation { get; set; }
+        public virtual Ressource Relation { get; set; }
 
     }
 }

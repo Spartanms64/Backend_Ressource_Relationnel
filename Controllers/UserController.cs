@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         // GET: UserController
         public ActionResult Index()

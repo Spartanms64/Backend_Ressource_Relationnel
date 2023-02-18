@@ -16,9 +16,9 @@ namespace Backend_Ressource_Relationnel.Models
         public DbSet<Role> roles { get; set; }
         public DbSet<Comment> comments { get; set; }
         public DbSet<Relation> relations { get; set; }
-        public DbSet<Relation> relations { get; set; }
         public DbSet<Ressource> ressources { get; set; }
         public DbSet<Type> types { get; set; }
+        public DbSet<Favorite> favorites { get; set; }
 
         public DataContext()
         {
