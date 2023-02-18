@@ -1,24 +1,24 @@
 ﻿#region Import
 
-using Backend_Ressource_Relationnel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 #endregion
-namespace Backend_Ressource_Relationnel.Controllers
+namespace Backend_Ressource_Relationnel.Models
 {
     // Classe representant la BDD
     public class DataContext : DbContext
     {
+        
 
         public DbSet<Category> categories { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Role> roles { get; set; }
         public DbSet<Comment> comments { get; set; }
-        public DbSet<Favorite> favorite { get; set; }
+        public DbSet<Relation> relations { get; set; }
         public DbSet<Relation> relations { get; set; }
         public DbSet<Ressource> ressources { get; set; }
-        public DbSet<Models.Type> types { get; set; }
+        public DbSet<Type> types { get; set; }
 
         public DataContext()
         {
@@ -40,21 +40,21 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>().ToTable("category");
-            modelBuilder.Entity<User>().ToTable("user");
-            modelBuilder.Entity<Role>().ToTable("role");
-            //modelBuilder.Entity<Comment>().ToTable("comment");
-            modelBuilder.Entity<Favorite>().ToTable("favorite");
-            modelBuilder.Entity<Relation>().ToTable("relation");
-            modelBuilder.Entity<Ressource>().ToTable("ressource");
-            modelBuilder.Entity<Models.Type>().ToTable("model");
+            /*   modelBuilder.Entity<Category>().ToTable("category");
+               modelBuilder.Entity<User>().ToTable("user");
+               modelBuilder.Entity<Role>().ToTable("role");
+               //modelBuilder.Entity<Comment>().ToTable("comment");
+               modelBuilder.Entity<Favorite>().ToTable("favorite");
+               modelBuilder.Entity<Relation>().ToTable("relation");
+               modelBuilder.Entity<Ressource>().ToTable("ressource");
+               modelBuilder.Entity<Models.Type>().ToTable("model");
 
-            // Test ecriture sur une table
-            modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
-                new Comment() { Id = 1, CreatedDate = new DateTime(), content = "test ecriture BDD" });
-        
-        
-        
+               // Test ecriture sur une table
+               modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
+                   new Comment() { Id = 1, CreatedDate = new DateTime(), content = "test ecriture BDD" });
+           */
+
+
         }
 
     }

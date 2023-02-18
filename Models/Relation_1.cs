@@ -1,6 +1,6 @@
 ﻿namespace Backend_Ressource_Relationnel.Models
 {
-    public class Favorite
+    public class Relation
     {
         //**** Favorite Table ****//
         public int Id { get; set; }
