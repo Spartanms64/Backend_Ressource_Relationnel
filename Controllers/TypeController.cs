@@ -42,7 +42,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.types.Add(types);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = types.Id }, types);
+            return CreatedAtAction("GetType", new { id = types.Id }, types);
         }
 
         // PUT api/<RessourceController>/5
