@@ -6,6 +6,8 @@ using System.Xml.Linq;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CommentController : ControllerBase
     {
         private readonly DataContext _context;

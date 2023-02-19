@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class FavoriteController : ControllerBase
     {
         private readonly DataContext _context;

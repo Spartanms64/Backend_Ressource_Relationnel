@@ -40,17 +40,17 @@ namespace Backend_Ressource_Relationnel.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*   modelBuilder.Entity<Category>().ToTable("category");
+               modelBuilder.Entity<Category>().ToTable("category");
                modelBuilder.Entity<User>().ToTable("user");
                modelBuilder.Entity<Role>().ToTable("role");
-               //modelBuilder.Entity<Comment>().ToTable("comment");
+               modelBuilder.Entity<Comment>().ToTable("comment");
                modelBuilder.Entity<Favorite>().ToTable("favorite");
                modelBuilder.Entity<Relation>().ToTable("relation");
                modelBuilder.Entity<Ressource>().ToTable("ressource");
                modelBuilder.Entity<Models.Type>().ToTable("model");
 
                // Test ecriture sur une table
-               modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
+              /* modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
                    new Comment() { Id = 1, CreatedDate = new DateTime(), content = "test ecriture BDD" });
            */
 
