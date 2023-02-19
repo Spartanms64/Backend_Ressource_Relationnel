@@ -41,7 +41,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.users.Add(users);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = users.Id }, users);
+            return CreatedAtAction("GetUser", new { id = users.Id }, users);
         }
 
         // PUT api/<RessourceController>/5
