@@ -14,7 +14,7 @@ namespace Backend_Ressource_Relationnel.Models
         public bool IsDeleted { get; set; }
 
         public int TypeID { get; set; }
-        public virtual Type Type { get; set; }
+        public virtual TypeR Type { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public int RelationId { get; set; } 

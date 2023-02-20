@@ -6,7 +6,7 @@
     }*/
 
 
-    public class Type
+    public class TypeR
     {
 
         public int Id { get; set; } 

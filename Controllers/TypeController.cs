@@ -19,14 +19,14 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         // GET: api/<RessourceController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Backend_Ressource_Relationnel.Models.Type>>> GetType()
+        public async Task<ActionResult<IEnumerable<Backend_Ressource_Relationnel.Models.TypeR>>> GetType()
         {
             return await _context.types.ToListAsync();
         }
 
         // GET api/<RessourceController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.Type>> GetType(int id)
+        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.TypeR>> GetType(int id)
         {
             var types = await _context.types.FindAsync(id);
             if (types == null)
@@ -39,7 +39,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         // POST api/<RessourceController>
         [HttpPost]
-        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.Type>> PostType(Backend_Ressource_Relationnel.Models.Type types)
+        public async Task<ActionResult<Backend_Ressource_Relationnel.Models.TypeR>> PostType(Backend_Ressource_Relationnel.Models.TypeR types)
         {
             _context.types.Add(types);
             await _context.SaveChangesAsync();
@@ -49,7 +49,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         // PUT api/<RessourceController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutType(int id, Backend_Ressource_Relationnel.Models.Type types)
+        public async Task<IActionResult> PutType(int id, Backend_Ressource_Relationnel.Models.TypeR types)
         {
             if (id != types.Id)
             {

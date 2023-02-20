@@ -17,7 +17,7 @@ namespace Backend_Ressource_Relationnel.Models
         public DbSet<Comment> comments { get; set; }
         public DbSet<Relation> relations { get; set; }
         public DbSet<Ressource> ressources { get; set; }
-        public DbSet<Type> types { get; set; }
+        public DbSet<TypeR> types { get; set; }
         public DbSet<Favorite> favorites { get; set; }
 
         public DataContext()
@@ -47,7 +47,7 @@ namespace Backend_Ressource_Relationnel.Models
                modelBuilder.Entity<Favorite>().ToTable("favorite");
                modelBuilder.Entity<Relation>().ToTable("relation");
                modelBuilder.Entity<Ressource>().ToTable("ressource");
-               modelBuilder.Entity<Models.Type>().ToTable("model");
+               modelBuilder.Entity<Models.TypeR>().ToTable("model");
 
                // Test ecriture sur une table
               /* modelBuilder.Entity<Comment>().ToTable("ressource").HasData(
