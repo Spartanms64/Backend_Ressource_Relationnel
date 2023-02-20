@@ -4,6 +4,9 @@ namespace Backend_Ressource_Relationnel
     {
         public static void Main(string[] args)
         {
+
+            /***************** Serveur **************************/
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -31,6 +34,20 @@ namespace Backend_Ressource_Relationnel
             app.MapControllers();
 
             app.Run();
+
+            /****************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
