@@ -1,7 +1,8 @@
 ﻿using Backend_Ressource_Relationnel.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
@@ -20,42 +21,43 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorite()
         {
-            return await _context.favorites.ToListAsync();
+            return await _context.favorite.ToListAsync();
         }
 
         // GET api/<FavoriteController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Favorite>> GetFavorite(int id)
         {
-            var favorites = await _context.favorites.FindAsync(id);
-            if (favorites == null)
+            var favorite = await _context.favorite.FindAsync(id);
+
+            if (favorite == null)
             {
                 return NotFound();
             }
 
-            return favorites;
+            return favorite;
         }
 
         // POST api/<FavoriteController>
         [HttpPost]
-        public async Task<ActionResult<Favorite>> PostFavorite(Favorite favorite)
+        public async Task<ActionResult<Favorite>> AddFavorite(Favorite favorite)
         {
-            _context.favorites.Add(favorite);
+            _context.favorite.Add(favorite);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFavorite", new { id = favorite.Id }, favorite);
+            return CreatedAtAction(nameof(GetFavorite), new { id = favorite.id }, favorite);
         }
 
         // PUT api/<FavoriteController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFavorite(int id, Favorite favorite)
+        public async Task<IActionResult> UpdateFavorite(int id, Favorite favorite)
         {
-            if (id != favorite.Id)
+            if (id != favorite.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(favorite).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(favorite).State = EntityState.Modified;
 
             try
             {
@@ -80,20 +82,22 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFavorite(int id)
         {
-            var favorites = await _context.favorites.FindAsync(id);
-            if (favorites == null)
+            var favorite = await _context.favorite.FindAsync(id);
+
+            if (favorite == null)
             {
                 return NotFound();
             }
 
-            _context.favorites.Remove(favorites);
+            _context.favorite.Remove(favorite);
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool FavoriteExists(int id)
         {
-            return _context.favorites.Any(e => e.Id == id);
+            return _context.favorite.Any(e => e.id == id);
         }
     }
 }

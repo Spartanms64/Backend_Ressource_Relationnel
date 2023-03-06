@@ -1,12 +1,12 @@
-﻿namespace Backend_Ressource_Relationnel.Models
+﻿using Backend_Ressource_Relationnel.Models;
+
+namespace Backend_Ressource_Relationnel.Models
 {
-
-
     public class Category
     {
+        public int id { get; set; }
+        public string category_name { get; set; }
 
-        public int Id { get; set; } 
-        public string CategoryName { get; set; }
-
+       // public virtual Resource resource { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Backend_Ressource_Relationnel.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
@@ -15,47 +16,47 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             _context = context;
         }
-
         // GET: api/<RelationController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
         {
-            return await _context.relations.ToListAsync();
+            return await _context.relation.ToListAsync();
         }
 
         // GET api/<RelationController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Relation>> GetRelation(int id)
         {
-            var relations = await _context.relations.FindAsync(id);
-            if (relations == null)
+            var relation = await _context.relation.FindAsync(id);
+
+            if (relation == null)
             {
                 return NotFound();
             }
 
-            return relations;
+            return relation;
         }
 
         // POST api/<RelationController>
         [HttpPost]
-        public async Task<ActionResult<Ressource>> PostRelation(Relation relation)
+        public async Task<ActionResult<Relation>> AddRelation(Relation relation)
         {
-            _context.relations.Add(relation);
+            _context.relation.Add(relation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
+            return CreatedAtAction(nameof(GetRelation), new { id = relation.id }, relation);
         }
 
         // PUT api/<RelationController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelation(int id, Ressource relations)
+        public async Task<IActionResult> UpdateRelation(int id, Relation relation)
         {
-            if (id != relations.Id)
+            if (id != relation.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(relations).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(relation).State = EntityState.Modified;
 
             try
             {
@@ -80,20 +81,22 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRelation(int id)
         {
-            var relations = await _context.relations.FindAsync(id);
-            if (relations == null)
+            var relation = await _context.relation.FindAsync(id);
+
+            if (relation == null)
             {
                 return NotFound();
             }
 
-            _context.relations.Remove(relations);
+            _context.relation.Remove(relation);
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool RelationExists(int id)
         {
-            return _context.relations.Any(e => e.Id == id);
+            return _context.relation.Any(e => e.id == id);
         }
     }
 }

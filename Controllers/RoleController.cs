@@ -1,7 +1,8 @@
 ﻿using Backend_Ressource_Relationnel.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
@@ -9,54 +10,53 @@ namespace Backend_Ressource_Relationnel.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-
         private readonly DataContext _context;
 
         public RoleController(DataContext context)
         {
             _context = context;
         }
-
-        // GET: api/<RessourceController>
+        // GET: api/<RoleController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetRole()
         {
-            return await _context.roles.ToListAsync();
+            return await _context.role.ToListAsync();
         }
 
-        // GET api/<RessourceController>/5
+        // GET api/<RoleController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Role>> GetRole(int id)
         {
-            var roles = await _context.roles.FindAsync(id);
-            if (roles == null)
+            var role = await _context.role.FindAsync(id);
+
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return roles;
+            return role;
         }
 
-        // POST api/<RessourceController>
+        // POST api/<RoleController>
         [HttpPost]
-        public async Task<ActionResult<Role>> PostRole(Role roles)
+        public async Task<ActionResult<Role>> AddRole(Role role)
         {
-            _context.roles.Add(roles);
+            _context.role.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = roles.Id }, roles);
+            return CreatedAtAction(nameof(GetRole), new { id = role.id }, role);
         }
 
-        // PUT api/<RessourceController>/5
+        // PUT api/<RoleController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRole(int id, Role roles)
+        public async Task<IActionResult> UpdateRole(int id, Role role)
         {
-            if (id != roles.Id)
+            if (id != role.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(roles).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -77,24 +77,26 @@ namespace Backend_Ressource_Relationnel.Controllers
             return NoContent();
         }
 
-        // DELETE api/<RessourceController>/5
+        // DELETE api/<RoleController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(int id)
         {
-            var roles = await _context.roles.FindAsync(id);
-            if (roles == null)
+            var role = await _context.role.FindAsync(id);
+
+            if (role == null)
             {
                 return NotFound();
             }
 
-            _context.roles.Remove(roles);
+            _context.role.Remove(role);
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool RoleExists(int id)
         {
-            return _context.roles.Any(e => e.Id == id);
+            return _context.role.Any(e => e.id == id);
         }
     }
 }

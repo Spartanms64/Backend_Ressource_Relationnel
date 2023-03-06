@@ -9,8 +9,10 @@
     public class TypeR
     {
 
-        public int Id { get; set; } 
-        public string TypeName { get; set; }
+        public int id { get; set; } 
+        public string type_name { get; set; }
+
+        /*public virtual ICollection<Resource> resources { get; set; }*/
 
     }
 }

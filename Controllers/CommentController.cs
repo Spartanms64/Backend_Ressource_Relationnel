@@ -1,63 +1,55 @@
 ﻿using Backend_Ressource_Relationnel.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
-
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CommentController : ControllerBase
     {
         private readonly DataContext _context;
 
         public CommentController(DataContext context)
-        {
-            _context = context;
+        { 
+            _context = context; 
         }
 
-        // GET: api/<CommentController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-            return await _context.comments.ToListAsync();
+            return await _context.comment.ToListAsync();
         }
 
-        // GET api/<CommentController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var comments = await _context.comments.FindAsync(id);
-            if (comments == null)
+            var comment = await _context.comment.FindAsync(id);
+            if(comment== null)
             {
                 return NotFound();
             }
-
-            return comments;
+            return comment;
         }
-
-        // POST api/<CommentController>
+        //Ajout
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comments)
+        public async Task<ActionResult<Comment>> AddComment(Comment comment)
         {
-            _context.comments.Add(comments);
+            _context.comment.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comments.Id }, comments);
+            return CreatedAtAction(nameof(GetComment), new { id = comment.id }, comment);
         }
-
-        // PUT api/<CommentController>/5
+        //mise a jour
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(int id, Comment comments)
+        public async Task<IActionResult> UpdateComment(int id, Comment comment)
         {
-            if (id != comments.Id)
+            if (id != comment.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comments).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(comment).State = EntityState.Modified;
 
             try
             {
@@ -78,24 +70,26 @@ namespace Backend_Ressource_Relationnel.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CommentController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var comments = await _context.comments.FindAsync(id);
-            if (comments == null)
+            var comment = await _context.comment.FindAsync(id);
+
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.comments.Remove(comments);
+            _context.comment.Remove(comment);
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool CommentExists(int id)
         {
-            return _context.comments.Any(e => e.Id == id);
+            return _context.comment.Any(e => e.id == id);
         }
+
     }
 }

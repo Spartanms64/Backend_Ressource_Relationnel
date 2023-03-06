@@ -2,13 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Backend_Ressource_Relationnel.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
         private readonly DataContext _context;
@@ -19,17 +16,18 @@ namespace Backend_Ressource_Relationnel.Controllers
         }
 
         // GET: api/<CategoryController>
+        //lister catégorie
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.categories.ToListAsync();
+            return await _context.category.ToListAsync();
         }
-
-        // GET api/<CategoryController>/5
+        //filtrage de la catégorie
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var category = await _context.categories.FindAsync(id);
+            var category = await _context.category.FindAsync(id);
+
             if (category == null)
             {
                 return NotFound();
@@ -37,27 +35,25 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return category;
         }
-
-        // POST api/<CategoryController>
+        //Ajout catégorie
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Category>> AddCategory(Category category)
         {
-            _context.categories.Add(category);
+            _context.category.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction(nameof(GetCategories), new { id = category.id }, category);
         }
-
-        // PUT api/<CategoryController>/5
+        //mise a jour catégorie
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> UpdateCategory(int id, Category category)
         {
-            if (id != category.Id)
+            if (id != category.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -78,24 +74,25 @@ namespace Backend_Ressource_Relationnel.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.categories.FindAsync(id);
+            var category = await _context.category.FindAsync(id);
+
             if (category == null)
             {
                 return NotFound();
             }
 
-            _context.categories.Remove(category);
+            _context.category.Remove(category);
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.categories.Any(e => e.Id == id);
+            return _context.category.Any(e => e.id == id);
         }
     }
 }

@@ -8,7 +8,7 @@
 
     public class Role
     {
-        public int Id { get; set; }
-        public string RoleName { get; set; }
+        public int id { get; set; }
+        public string role_name { get; set; }
     }
 }

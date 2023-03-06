@@ -8,56 +8,56 @@ namespace Backend_Ressource_Relationnel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class TypeRController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public UserController(DataContext context)
+        public TypeRController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: api/<UserController>
+        // GET: api/<TypeRController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<TypeR>>> GetTypeR()
         {
-            return await _context.user.ToListAsync();
+            return await _context.type.ToListAsync();
         }
 
-        // GET api/<UserController>/5
+        // GET api/<TypeRController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<TypeR>> GetTypeR(int id)
         {
-            var user = await _context.user.FindAsync(id);
+            var type = await _context.type.FindAsync(id);
 
-            if (user == null)
+            if (type == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return type;
         }
 
-        // POST api/<UserController>
+        // POST api/<TypeRController>
         [HttpPost]
-        public async Task<ActionResult<User>> AddUser(User user)
+        public async Task<ActionResult<TypeR>> AddTypeR(TypeR type)
         {
-            _context.user.Add(user);
+            _context.type.Add(type);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);
+            return CreatedAtAction(nameof(GetTypeR), new { id = type.id }, type);
         }
 
-        // PUT api/<UserController>/5
+        // PUT api/<TypeRController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User user)
+        public async Task<IActionResult> UpdateType(int id, TypeR type)
         {
-            if (id != user.id)
+            if (id != type.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(type).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +65,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!TypeRExists(id))
                 {
                     return NotFound();
                 }
@@ -78,26 +78,26 @@ namespace Backend_Ressource_Relationnel.Controllers
             return NoContent();
         }
 
-        // DELETE api/<UserController>/5
+        // DELETE api/<TypeRController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteType(int id)
         {
-            var user = await _context.user.FindAsync(id);
+            var type = await _context.type.FindAsync(id);
 
-            if (user == null)
+            if (type == null)
             {
                 return NotFound();
             }
 
-            _context.user.Remove(user);
+            _context.type.Remove(type);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool TypeRExists(int id)
         {
-            return _context.user.Any(e => e.id == id);
+            return _context.type.Any(e => e.id == id);
         }
     }
 }

@@ -3,7 +3,9 @@
     public class Relation
     {
 
-        public int Id { get; set; }
-        public string RelationName { get; set; }
+        public int id { get; set; }
+        public string relation_name { get; set; }
+
+       // public virtual User user { get; set; }
     }
 }
