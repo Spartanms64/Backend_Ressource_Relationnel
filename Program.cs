@@ -7,7 +7,6 @@ using System;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 
-
 namespace Backend_Ressource_Relationnel
 {
     public class Program
@@ -25,7 +24,6 @@ namespace Backend_Ressource_Relationnel
                 });
     }
 }
-
 
 /* public void ConfigureServices(IServiceCollection services)
         {

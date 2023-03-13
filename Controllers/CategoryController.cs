@@ -22,6 +22,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             return await _context.category.ToListAsync();
         }
+
         //filtrage de la catégorie
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
@@ -35,6 +36,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return category;
         }
+
         //Ajout catégorie
         [HttpPost]
         public async Task<ActionResult<Category>> AddCategory(Category category)
@@ -44,6 +46,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return CreatedAtAction(nameof(GetCategories), new { id = category.id }, category);
         }
+
         //mise a jour catégorie
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, Category category)
@@ -71,7 +74,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(category);
         }
 
         [HttpDelete("{id}")]
@@ -87,7 +90,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.category.Remove(category);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(category);
         }
 
         private bool CategoryExists(int id)

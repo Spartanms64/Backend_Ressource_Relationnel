@@ -19,8 +19,9 @@ namespace Backend_Ressource_Relationnel
             // Configuration Base de données MySQL avec connexion
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DataContext>(options =>
-                options.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 6, 11)))
+                options.UseMySql(connectionString, MariaDbServerVersion.AutoDetect(connectionString))
                 );
+            //services.AddDbContext<DataContext>(options => options.UseMemoryCache();
 
             services.AddControllers();
             //Ajout service Swagger

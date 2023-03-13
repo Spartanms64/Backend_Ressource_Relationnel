@@ -91,7 +91,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.resource.Remove(resource);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(resource);
         }
 
         private bool ResourceExists(int id)
