@@ -16,6 +16,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             _context = context;
         }
+
         // GET: api/<ResourceController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Resource>>> GetResource()

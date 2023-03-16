@@ -1,5 +1,4 @@
-﻿using Backend_Ressource_Relationnel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Backend_Ressource_Relationnel
@@ -49,6 +48,11 @@ namespace Backend_Ressource_Relationnel
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+             );
 
             app.UseAuthorization();
 
@@ -56,6 +60,30 @@ namespace Backend_Ressource_Relationnel
             {
                 endpoints.MapControllers();
             });
+            /*app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            });*/
         }
     }
 }
+
+/*
+var allowOrigins = Configuration.GetValue<string>("AllowOrigins");
+services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.WithOrigins(allowOrigins)
+        .AllowAnyHeader()
+        .AllowAnyOrigin()
+        .AllowCredentials();
+    });
+    options.AddPolicy("AllowHeaders", builder =>
+    {
+        builder.WithOrigins(allowOrigins)
+        .WithHeaders(HeaderNames.ContentType, HeaderNames.Server, HeaderNames.AccessControlAllowHeaders, HeaderNames.AccessControlExposeHeaders, "x-custom-header", "x-path", "x-record-in-use", HeaderNames.ContentDisposition);
+    });
+});*/

@@ -8,8 +8,8 @@ namespace Backend_Ressource_Relationnel.Models
         public string title { get; set; }
         public string description { get; set; }
 
-        //public Blob content { get; set; }
-        //public JsonContent element { get; set; }
+        public byte[] content { get; set; }
+        public string element { get; set; }
         public DateTime date { get; set; }
 
         public bool isdeleted { get; set; }
