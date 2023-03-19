@@ -9,6 +9,7 @@
       "Backend_Ressource_Relationnel/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.13",
+          "Microsoft.EntityFrameworkCore.InMemory": "6.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.13",
           "MySql.EntityFrameworkCore": "6.0.10",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.1",
@@ -101,6 +102,17 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "6.0.13.0",
+            "fileVersion": "6.0.1322.58004"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.InMemory/6.0.13": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.13"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
             "assemblyVersion": "6.0.13.0",
             "fileVersion": "6.0.1322.58004"
           }
@@ -561,6 +573,13 @@
       "sha512": "sha512-ycFZrBWsQNhd9icPPd/HatodZp0Y3oAsyhvwPIpElhRnh50VrJ/Jl/PyY0uekkvafMBbhN/XS2Xkk3BgDNh5Tg==",
       "path": "microsoft.entityframeworkcore.design/6.0.13",
       "hashPath": "microsoft.entityframeworkcore.design.6.0.13.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/6.0.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NEOR8DI3v3heJkWLhyu7LyoXLGB0qNlkABzkzQ+90/YTjFlQU/L/tbG2cKMsZXtk4hlTI10Xzn24h+YkUNustw==",
+      "path": "microsoft.entityframeworkcore.inmemory/6.0.13",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.6.0.13.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/6.0.13": {
       "type": "package",

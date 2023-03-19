@@ -1,4 +1,6 @@
 ﻿using Backend_Ressource_Relationnel;
+using Backend_Ressource_Relationnel.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -23,6 +25,11 @@ namespace Backend_Ressource_Relationnel
                 );
 
             services.AddControllers();
+            services.AddIdentity<User, IdentityRole>()
+                                        .AddEntityFrameworkStores<DataContext>()
+                                        .AddDefaultTokenProviders();
+
+
             //Ajout service Swagger
             services.AddSwaggerGen(c =>
             {

@@ -1,10 +1,16 @@
 ﻿using Backend_Ressource_Relationnel.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
     [ApiController]
+    [Authorize] //  à appliquer pour restreindre l'accès au controlleur quand c'est nécessaire et peut être aussi ajouté au dessus d'une méthode pour y restreindre l'accèes
+
+    // Restrict by role:
+   // [Authorize(Roles = "Administrators")]
+
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
@@ -71,7 +77,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(category);
         }
 
         [HttpDelete("{id}")]
@@ -87,7 +93,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.category.Remove(category);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(category);
         }
 
         private bool CategoryExists(int id)
