@@ -3,26 +3,25 @@
     public class User
     {
         //**** User Table ****//  
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string FirstName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string firstname { get; set; }
+        public DateTime birthday { get; set; }
+        public string phonenumber { get; set; }
+        public string email { get; set; }
 
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public bool IsDeleted { get; set; }
+        public string password { get; set; }
+        public bool isdeleted { get; set; }
 
         //**** Jointure Role Table ****//
-
-        public int RoleId { get; set; }
-        public virtual Role Role { get; set; }
+        /*
+        public int id_role { get; set; }
+        public virtual Role role { get; set; }*/
 
 
     }
 
-    public class CitoyenConnect : Citoyen
+    public class CitoyenConnect : User
     {
 
     }
