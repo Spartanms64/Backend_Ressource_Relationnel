@@ -75,7 +75,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(user);
         }
 
         // DELETE api/<UserController>/5
