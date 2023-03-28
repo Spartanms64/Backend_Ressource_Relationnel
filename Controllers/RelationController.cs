@@ -16,6 +16,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             _context = context;
         }
+
         // GET: api/<RelationController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
@@ -74,7 +75,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(relation);
         }
 
         // DELETE api/<RelationController>/5

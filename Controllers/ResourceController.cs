@@ -34,6 +34,8 @@ namespace Backend_Ressource_Relationnel.Controllers
             {
                 return NotFound();
             }
+            //string contentbdd = Convert.ToBase64String(resource.content);
+            //resource.content = contentbdd;
 
             return resource;
         }
@@ -75,7 +77,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(resource);
         }
 
         // DELETE api/<ResourceController>/5

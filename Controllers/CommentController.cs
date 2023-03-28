@@ -11,8 +11,8 @@ namespace Backend_Ressource_Relationnel.Controllers
         private readonly DataContext _context;
 
         public CommentController(DataContext context)
-        { 
-            _context = context; 
+        {
+            _context = context;
         }
 
         [HttpGet]
@@ -25,12 +25,13 @@ namespace Backend_Ressource_Relationnel.Controllers
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
             var comment = await _context.comment.FindAsync(id);
-            if(comment== null)
+            if (comment == null)
             {
                 return NotFound();
             }
             return comment;
         }
+
         //Ajout
         [HttpPost]
         public async Task<ActionResult<Comment>> AddComment(Comment comment)
@@ -40,6 +41,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return CreatedAtAction(nameof(GetComment), new { id = comment.id }, comment);
         }
+
         //mise a jour
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateComment(int id, Comment comment)
@@ -67,7 +69,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(comment);
         }
 
         [HttpDelete("{id}")]
@@ -90,6 +92,5 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             return _context.comment.Any(e => e.id == id);
         }
-
     }
 }

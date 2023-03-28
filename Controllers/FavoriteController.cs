@@ -75,7 +75,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(favorite);
         }
 
         // DELETE api/<FavoriteController>/5
