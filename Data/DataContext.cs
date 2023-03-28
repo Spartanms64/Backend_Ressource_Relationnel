@@ -2,12 +2,10 @@
 
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Backend_Ressource_Relationnel
 {
     public class DataContext : DbContext
     {
-        
         public DbSet<Category> category { get; set; }
         public DbSet<User> user { get; set; }
         public DbSet<Role> role { get; set; }
@@ -17,15 +15,21 @@ namespace Backend_Ressource_Relationnel
         public DbSet<TypeR> type { get; set; }
         public DbSet<Favorite> favorite { get; set; }
 
-        public DataContext(DbContextOptions<DataContext> options) : base(options) 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*modelBuilder.Entity<Resource>()
+                .HasOne(r => r.id_category)
+                .WithMany()
+                .HasForeignKey(r => r.id_category);
+            modelBuilder.Entity<Resource>()
+                .HasOne(r=>r.typeR)
+                .WithMany()
+                .HasForeignKey(r=>r.id_type);
+
+            */
         }
 
-        //public DataContext(DbContextOptionsBuilder<DataContext> optionsBuilder) { optionsBuilder.UseMemoryCache(); }
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMemoryCache(memoryCache);*/
-        
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
     }
