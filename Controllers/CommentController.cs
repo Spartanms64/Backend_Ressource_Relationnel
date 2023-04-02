@@ -18,13 +18,19 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-            return await _context.comment.ToListAsync();
+            return await _context.comment
+                .Include(c=>c.user)
+                .Include(c=>c.resource)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var comment = await _context.comment.FindAsync(id);
+            var comment = await _context.comment
+                .Include(c => c.id_user)
+                .Include(c => c.id_resource)
+                .FirstOrDefaultAsync(c => c.id == id);
             if (comment == null)
             {
                 return NotFound();

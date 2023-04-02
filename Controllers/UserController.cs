@@ -21,14 +21,14 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.user.ToListAsync();
+            return await _context.user.Include(u => u.role).ToListAsync();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.user.FindAsync(id);
+            var user = await _context.user.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id);
 
             if (user == null)
             {
@@ -37,6 +37,19 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return user;
         }
+
+        // toute les utilisateurs qui on la meme role
+        /*[HttpGet("Relation/{id}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetResourceByRelation(int id)
+        {
+            var users = await _context.user.Where(u => u.id_role == id).ToListAsync();
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return users;
+        }*/
 
         // POST api/<UserController>
         [HttpPost]

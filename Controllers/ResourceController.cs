@@ -21,14 +21,22 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Resource>>> GetResource()
         {
-            return await _context.resource.ToListAsync();
+            return await _context.resource
+                .Include(r => r.category)
+                .Include(r => r.typeR)
+                .Include(r => r.relation)
+                .ToListAsync();
         }
 
         // GET api/<ResourceController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Resource>> GetResource(int id)
         {
-            var resource = await _context.resource.FindAsync(id);
+            var resource = await _context.resource
+                .Include(r => r.category)
+                .Include(r => r.typeR)
+                .Include(r => r.relation)
+                .FirstOrDefaultAsync(r => r.id == id);
 
             if (resource == null)
             {
@@ -38,6 +46,45 @@ namespace Backend_Ressource_Relationnel.Controllers
             //resource.content = contentbdd;
 
             return resource;
+        }
+
+        //toute les ressource de la meme categorie
+        [HttpGet("Category/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByCategory(int id)
+        {
+            var resources = await _context.resource.Where(r => r.id_category == id).ToListAsync();
+            if (resources == null)
+            {
+                return NotFound();
+            }
+
+            return resources;
+        }
+
+        // Toute les ressources du meme type
+        [HttpGet("Type/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByType(int id)
+        {
+            var resources = await _context.resource.Where(r => r.id_type == id).ToListAsync();
+            if (resources == null)
+            {
+                return NotFound();
+            }
+
+            return resources;
+        }
+
+        // toute les ressources qui on la meme relation
+        [HttpGet("Relation/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByRelation(int id)
+        {
+            var resources = await _context.resource.Where(r => r.id_relation == id).ToListAsync();
+            if (resources == null)
+            {
+                return NotFound();
+            }
+
+            return resources;
         }
 
         // POST api/<ResourceController>
