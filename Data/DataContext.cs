@@ -17,16 +17,51 @@ namespace Backend_Ressource_Relationnel
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Resource>()
-                .HasOne(r => r.id_category)
+            /* Contrainte Resource */
+            modelBuilder.Entity<Resource>()
+                .HasOne(r => r.category)
                 .WithMany()
                 .HasForeignKey(r => r.id_category);
-            modelBuilder.Entity<Resource>()
-                .HasOne(r=>r.typeR)
-                .WithMany()
-                .HasForeignKey(r=>r.id_type);
 
-            */
+            modelBuilder.Entity<Resource>()
+                .HasOne(r => r.typeR)
+                .WithMany()
+                .HasForeignKey(r => r.id_type);
+
+            modelBuilder.Entity<Resource>()
+                .HasOne(r => r.relation)
+                .WithMany()
+                .HasForeignKey(r => r.id_relation);
+            /* Contrainte user */
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.role)
+                .WithMany()
+                .HasForeignKey(u => u.id_role);
+
+            /* Contrainte comment */
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.resource)
+                .WithMany()
+                .HasForeignKey(c => c.id_resource);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.user)
+                .WithMany()
+                .HasForeignKey(c => c.id_user);
+
+            /* Contrainte favorie */
+
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.user)
+                .WithMany()
+                .HasForeignKey(f => f.id_user);
+
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.resource)
+                .WithMany()
+                .HasForeignKey(f => f.id_resource);
         }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)

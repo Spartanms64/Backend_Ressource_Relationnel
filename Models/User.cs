@@ -2,8 +2,9 @@
 {
     public class User
     {
-        //**** User Table ****//  
+        //**** User Table ****//
         public int id { get; set; }
+
         public string name { get; set; }
         public string firstname { get; set; }
         public DateTime birthday { get; set; }
@@ -18,25 +19,19 @@
         public int id_role { get; set; }
         public virtual Role role { get; set; }*/
 
-
+        public int id_role { get; set; }
+        public Role role { get; set; }
     }
 
     public class CitoyenConnect : User
     {
-
     }
 
     public class Moderateur : CitoyenConnect
     {
-
     }
 
     public class Administrateur : Moderateur
     {
-
-
     }
-
-
-
 }

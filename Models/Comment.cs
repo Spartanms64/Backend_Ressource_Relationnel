@@ -11,9 +11,15 @@ namespace Backend_Ressource_Relationnel.Models
 
         //***** Jointure User & Ressource *****//
 
-       /* public int id_user { get; set; }
-        public int is_ressource { get; set; }
-        public virtual User user { get; set; }
-        public virtual Resource resource { get; set; }*/
+        /* public int id_user { get; set; }
+         public int is_ressource { get; set; }
+         public virtual User user { get; set; }
+         public virtual Resource resource { get; set; }*/
+
+        public int id_user { get; set; }
+        public User user { get; set; }
+
+        public int id_resource { get; set; }
+        public Resource resource { get; set; }
     }
 }
