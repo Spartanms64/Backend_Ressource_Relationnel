@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Net;
 
 namespace Backend_Ressource_Relationnel
 {
@@ -21,6 +23,29 @@ namespace Backend_Ressource_Relationnel
                 options.UseMySql(connectionString, MariaDbServerVersion.AutoDetect(connectionString))
                 );
             //services.AddDbContext<DataContext>(options => options.UseMemoryCache();
+
+            //configuration FTP Serveur
+            var ftpUrl = Configuration.GetSection("FtpSettings")["FtpServerURL"]; ;// Récupération de l'URL du serveur FTP depuis le fichier de configuration
+            var ftpUsername = Configuration.GetSection("FtpSettings")["FtpUsername"]; // Récupération du nom d'utilisateur du serveur FTP depuis le fichier de configuration
+            var ftpPassword = Configuration.GetSection("FtpSettings")["FtpPassword"]; // Récupération du mot de passe du serveur FTP depuis le fichier de configuration
+
+            // Inscription d'un WebClient en tant que service injectable pour interagir avec le serveur FTP
+            services.AddSingleton<WebClient>((provider) =>
+            {
+                var client = new WebClient();
+                client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+                return client;
+            });
+            /******** TEST FTP **********//
+            // Test de connexion en affichant la liste des fichiers du répertoire racine
+
+            /*// Création d'un WebClient pour interagir avec le serveur FTP
+        _webClient = new WebClient();
+        _webClient.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+
+        // Test de connexion en affichant la liste des fichiers du répertoire racine
+        var fileList = _webClient.DownloadString(ftpUrl);
+        Console.WriteLine($"Liste des fichiers du répertoire racine du serveur FTP : {fileList}");*/
 
             services.AddControllers();
             //Ajout service Swagger
