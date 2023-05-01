@@ -36,7 +36,7 @@ namespace Backend_Ressource_Relationnel
                 client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
                 return client;
             });
-            /******** TEST FTP **********//
+            /******** TEST FTP **********/
             // Test de connexion en affichant la liste des fichiers du répertoire racine
 
             /*// Création d'un WebClient pour interagir avec le serveur FTP
