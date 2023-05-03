@@ -76,15 +76,14 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.user.ToListAsync();
+            return await _context.user.Include(u => u.role).ToListAsync();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.user.FindAsync(id);
-
+            var user = await _context.user.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id);
             if (user == null)
             {
                 return NotFound();
@@ -96,12 +95,12 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User model)
         {
-            var user = new User { name = model.name, email = model.email };
+            var user = new User { name = model.name, email = model.email, id_role = 1};
             var result = await _userManager.CreateAsync(user, model.password);
             if (result.Succeeded)
             {
                 // add user to default role
-                await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user,"User");
 
                 return Ok();
             }
