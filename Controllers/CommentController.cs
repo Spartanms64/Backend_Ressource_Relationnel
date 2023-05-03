@@ -19,8 +19,8 @@ namespace Backend_Ressource_Relationnel.Controllers
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
             return await _context.comment
-                .Include(c=>c.user)
-                .Include(c=>c.resource)
+                .Include(c => c.user)
+                .Include(c => c.resource)
                 .ToListAsync();
         }
 
