@@ -1,10 +1,16 @@
 ﻿using Backend_Ressource_Relationnel.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Ressource_Relationnel.Controllers
 {
     [ApiController]
+    [Authorize] //  à appliquer pour restreindre l'accès au controlleur quand c'est nécessaire et peut être aussi ajouté au dessus d'une méthode pour y restreindre l'accèes
+
+    // Restrict by role:
+   // [Authorize(Roles = "Administrators")]
+
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
