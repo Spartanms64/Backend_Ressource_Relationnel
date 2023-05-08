@@ -1,8 +1,9 @@
-﻿using Backend_Ressource_Relationnel;
-using Backend_Ressource_Relationnel.Models;
+﻿using Backend_Ressource_Relationnel.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Net;
 
 namespace Backend_Ressource_Relationnel
 {
@@ -21,15 +22,36 @@ namespace Backend_Ressource_Relationnel
             // Configuration Base de données MySQL avec connexion
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DataContext>(options =>
-                options.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 6, 11)))
+                options.UseMySql(connectionString, MariaDbServerVersion.AutoDetect(connectionString))
                 );
+            //services.AddDbContext<DataContext>(options => options.UseMemoryCache();
+
+            //configuration FTP Serveur
+            var ftpUrl = Configuration.GetSection("FtpSettings")["FtpServerURL"]; ;// Récupération de l'URL du serveur FTP depuis le fichier de configuration
+            var ftpUsername = Configuration.GetSection("FtpSettings")["FtpUsername"]; // Récupération du nom d'utilisateur du serveur FTP depuis le fichier de configuration
+            var ftpPassword = Configuration.GetSection("FtpSettings")["FtpPassword"]; // Récupération du mot de passe du serveur FTP depuis le fichier de configuration
+
+            // Inscription d'un WebClient en tant que service injectable pour interagir avec le serveur FTP
+            services.AddSingleton<WebClient>((provider) =>
+            {
+                var client = new WebClient();
+                client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+                return client;
+            });
+            /******** TEST FTP **********/
+            // Test de connexion en affichant la liste des fichiers du répertoire racine
+
+            /*// Création d'un WebClient pour interagir avec le serveur FTP
+        _webClient = new WebClient();
+        _webClient.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+
+        // Test de connexion en affichant la liste des fichiers du répertoire racine
+        var fileList = _webClient.DownloadString(ftpUrl);
+        Console.WriteLine($"Liste des fichiers du répertoire racine du serveur FTP : {fileList}");*/
+
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
             services.AddControllers();
-            services.AddIdentity<User, IdentityRole>()
-                                        .AddEntityFrameworkStores<DataContext>()
-                                        .AddDefaultTokenProviders();
-
-
             //Ajout service Swagger
             services.AddSwaggerGen(c =>
             {
@@ -55,13 +77,43 @@ namespace Backend_Ressource_Relationnel
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+             );
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            /*app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            });*/
         }
     }
 }
+
+/*
+var allowOrigins = Configuration.GetValue<string>("AllowOrigins");
+services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.WithOrigins(allowOrigins)
+        .AllowAnyHeader()
+        .AllowAnyOrigin()
+        .AllowCredentials();
+    });
+    options.AddPolicy("AllowHeaders", builder =>
+    {
+        builder.WithOrigins(allowOrigins)
+        .WithHeaders(HeaderNames.ContentType, HeaderNames.Server, HeaderNames.AccessControlAllowHeaders, HeaderNames.AccessControlExposeHeaders, "x-custom-header", "x-path", "x-record-in-use", HeaderNames.ContentDisposition);
+    });
+});*/

@@ -16,48 +16,76 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             _context = context;
         }
+
         // GET: api/<ResourceController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Resource>>> GetResource()
         {
-            return await _context.resource.ToListAsync();
+            return await _context.resource
+                .Include(r => r.category)
+                .Include(r => r.typeR)
+                .Include(r => r.relation)
+                .ToListAsync();
         }
 
         // GET api/<ResourceController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Resource>> GetResource(int id)
         {
-            var resource = await _context.resource.FindAsync(id);
+            var resource = await _context.resource
+                .Include(r => r.category)
+                .Include(r => r.typeR)
+                .Include(r => r.relation)
+                .FirstOrDefaultAsync(r => r.id == id);
 
             if (resource == null)
             {
                 return NotFound();
             }
+            //string contentbdd = Convert.ToBase64String(resource.content);
+            //resource.content = contentbdd;
 
             return resource;
         }
 
-        // GET /SHARE 
-
-        [HttpGet("{id}/share")]
-        public IActionResult Share(int id)
+        //toute les ressource de la meme categorie
+        [HttpGet("Category/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByCategory(int id)
         {
-            // Rechercher la ressource dans la base de données par son ID
-            var ressource = _context.resource.FirstOrDefault(a => a.id == id);
-
-            if (ressource == null)
+            var resources = await _context.resource.Where(r => r.id_category == id).ToListAsync();
+            if (resources == null)
             {
-                return NotFound(); // Retourne une réponse 404 si la ressource n'est pas trouvé
+                return NotFound();
             }
 
-            // Générer une URL unique pour la ressource
-            var baseUrl = Request.Scheme + "://" + Request.Host.ToUriComponent();
-            var url = baseUrl + "/ressource/" + ressource.id;
-
-            // Retourner l'URL dans le corps de la réponse
-            return Ok(url);
+            return resources;
         }
 
+        // Toute les ressources du meme type
+        [HttpGet("Type/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByType(int id)
+        {
+            var resources = await _context.resource.Where(r => r.id_type == id).ToListAsync();
+            if (resources == null)
+            {
+                return NotFound();
+            }
+
+            return resources;
+        }
+
+        // toute les ressources qui on la meme relation
+        [HttpGet("Relation/{id}")]
+        public async Task<ActionResult<IEnumerable<Resource>>> GetResourceByRelation(int id)
+        {
+            var resources = await _context.resource.Where(r => r.id_relation == id).ToListAsync();
+            if (resources == null)
+            {
+                return NotFound();
+            }
+
+            return resources;
+        }
 
         // POST api/<ResourceController>
         [HttpPost]
@@ -96,7 +124,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(resource);
         }
 
         // DELETE api/<ResourceController>/5
@@ -113,7 +141,7 @@ namespace Backend_Ressource_Relationnel.Controllers
             _context.resource.Remove(resource);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(resource);
         }
 
         private bool ResourceExists(int id)

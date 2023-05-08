@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend_Ressource_Relationnel.Controllers
 {
     [ApiController]
-    [Authorize] //  à appliquer pour restreindre l'accès au controlleur quand c'est nécessaire et peut être aussi ajouté au dessus d'une méthode pour y restreindre l'accèes
 
     // Restrict by role:
-   // [Authorize(Roles = "Administrators")]
+    // [Authorize(Roles = "Administrators")]
 
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
@@ -28,6 +27,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         {
             return await _context.category.ToListAsync();
         }
+
         //filtrage de la catégorie
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
@@ -41,6 +41,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return category;
         }
+
         //Ajout catégorie
         [HttpPost]
         public async Task<ActionResult<Category>> AddCategory(Category category)
@@ -50,6 +51,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             return CreatedAtAction(nameof(GetCategories), new { id = category.id }, category);
         }
+
         //mise a jour catégorie
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, Category category)

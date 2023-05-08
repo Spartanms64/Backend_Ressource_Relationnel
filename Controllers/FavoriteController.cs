@@ -21,14 +21,20 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorite()
         {
-            return await _context.favorite.ToListAsync();
+            return await _context.favorite
+                .Include(f=>f.id_user)
+                .Include(f=>f.id_resource)
+                .ToListAsync();
         }
 
         // GET api/<FavoriteController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Favorite>> GetFavorite(int id)
         {
-            var favorite = await _context.favorite.FindAsync(id);
+            var favorite = await _context.favorite
+                .Include(f => f.id_user)
+                .Include(f => f.id_resource)
+                .FirstOrDefaultAsync(f=>f.id == id);
 
             if (favorite == null)
             {
@@ -75,7 +81,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(favorite);
         }
 
         // DELETE api/<FavoriteController>/5
