@@ -37,6 +37,28 @@ namespace Backend_Ressource_Relationnel.Controllers
             return resource;
         }
 
+        // GET /SHARE 
+
+        [HttpGet("{id}/share")]
+        public IActionResult Share(int id)
+        {
+            // Rechercher la ressource dans la base de données par son ID
+            var ressource = _context.resource.FirstOrDefault(a => a.id == id);
+
+            if (ressource == null)
+            {
+                return NotFound(); // Retourne une réponse 404 si la ressource n'est pas trouvé
+            }
+
+            // Générer une URL unique pour la ressource
+            var baseUrl = Request.Scheme + "://" + Request.Host.ToUriComponent();
+            var url = baseUrl + "/ressource/" + ressource.id;
+
+            // Retourner l'URL dans le corps de la réponse
+            return Ok(url);
+        }
+
+
         // POST api/<ResourceController>
         [HttpPost]
         public async Task<ActionResult<Resource>> AddResource(Resource resource)
