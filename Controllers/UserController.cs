@@ -13,8 +13,6 @@ namespace Backend_Ressource_Relationnel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-   
     public class UserController : ControllerBase
     {
         private readonly DataContext _context;
@@ -23,28 +21,21 @@ namespace Backend_Ressource_Relationnel.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
 
-
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public UserController(DataContext context, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
-        }
-
-
-        public UserController(DataContext context)
-        {
             _context = context;
         }
 
         // LOGIN USER
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User model)
         {
             var user = await _userManager.FindByNameAsync(model.name);
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.password))
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.PasswordHash))
             {
                 var authClaims = new List<Claim>
             {
@@ -71,19 +62,18 @@ namespace Backend_Ressource_Relationnel.Controllers
             return Unauthorized();
         }
 
-
         // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.user.Include(u => u.role).ToListAsync();
+            return await _context.user.ToListAsync();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.user.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id);
+            var user = await _context.user.Include(u => u.role).FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -95,12 +85,25 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User model)
         {
-            var user = new User { name = model.name, email = model.email, id_role = 1};
-            var result = await _userManager.CreateAsync(user, model.password);
+            var user = new User
+            {
+                name = model.name,
+                firstname = model.firstname,
+                UserName = model.Email,
+                Email = model.Email,
+                birthday = model.birthday,
+                PhoneNumber = model.PhoneNumber,
+                LockoutEnd= DateTime.Now,
+                id_role = 1
+            };
+
+            //hash du mdp
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.PasswordHash);
+            var result = await _userManager.CreateAsync(user, model.PasswordHash);
             if (result.Succeeded)
             {
                 // add user to default role
-                await _userManager.AddToRoleAsync(user,"User");
+                await _userManager.AddToRoleAsync(user, "User");
 
                 return Ok();
             }
@@ -110,11 +113,19 @@ namespace Backend_Ressource_Relationnel.Controllers
             }
         }
 
+        // Deconnexion
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok();
+        }
+
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, User user)
         {
-            if (id != user.id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
@@ -159,7 +170,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.user.Any(e => e.id == id);
+            return _context.user.Any(e => e.Id == id);
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿namespace Backend_Ressource_Relationnel.Models
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace Backend_Ressource_Relationnel.Models
 {
-    public enum User_Role
+    public class Role: IdentityRole
     {
-        Citoyen, Moderateur, Administrateur, SuperAdministrateur
-    }
-
-
-    public class Role
-    {
+        [JsonPropertyName("roleId")]
+        [Key]
         public int id { get; set; }
         public string role_name { get; set; }
     }

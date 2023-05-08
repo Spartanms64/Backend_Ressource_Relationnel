@@ -42,3 +42,13 @@ T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backen
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.pdb
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\Backend_Ressource_Relationnel.genruntimeconfig.cache
 T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\obj\Debug\net6.0\ref\Backend_Ressource_Relationnel.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+T:\Etude Superieure\5.CESI\3.Projet\Web_Application_Ressource_Relationnel\Backend_Ressource_Relationnel\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll

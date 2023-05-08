@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Backend_Ressource_Relationnel.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using System.Net;
@@ -47,6 +49,8 @@ namespace Backend_Ressource_Relationnel
         var fileList = _webClient.DownloadString(ftpUrl);
         Console.WriteLine($"Liste des fichiers du répertoire racine du serveur FTP : {fileList}");*/
 
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+
             services.AddControllers();
             //Ajout service Swagger
             services.AddSwaggerGen(c =>
@@ -79,6 +83,7 @@ namespace Backend_Ressource_Relationnel
                 .AllowAnyOrigin()
              );
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
