@@ -1,6 +1,8 @@
 ﻿using Backend_Ressource_Relationnel.Models;
+using Backend_Ressource_Relationnel.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -91,6 +93,32 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPost]
         public async Task<ActionResult<Resource>> AddResource(Resource resource)
         {
+            // verification exist
+            var existingcategory = await _context.category.FindAsync(resource.id_category);
+            if (existingcategory == null)
+            {
+                return NotFound("La catégorie n'existe pas");
+            }
+            var existingtype = await _context.type.FindAsync(resource.id_type);
+            if (existingtype == null)
+            {
+                return NotFound("Le type n'existe pas");
+            }
+            var existingrelation = await _context.relation.FindAsync(resource.id_relation);
+            if (existingrelation == null)
+            {
+                return NotFound("La relation n'existe pas");
+            }
+
+            // gestion de la jointure
+            resource.category = existingcategory;
+            resource.relation = existingrelation;
+            resource.typeR = existingtype;
+
+            // defaut ressource
+            resource.isdeleted = false;
+            resource.nfavorie = 0;
+
             _context.resource.Add(resource);
             await _context.SaveChangesAsync();
 
@@ -105,6 +133,29 @@ namespace Backend_Ressource_Relationnel.Controllers
             {
                 return BadRequest();
             }
+            // verification exist
+            var existingcategory = await _context.category.FindAsync(resource.id_category);
+            if (existingcategory == null)
+            {
+                return NotFound("La catégorie n'existe pas");
+            }
+            var existingtype = await _context.type.FindAsync(resource.id_type);
+            if (existingtype == null)
+            {
+                return NotFound("Le type n'existe pas");
+            }
+            var existingrelation = await _context.relation.FindAsync(resource.id_relation);
+            if (existingrelation == null)
+            {
+                return NotFound("La relation n'existe pas");
+            }
+
+            // gestion de la jointure
+            resource.category = existingcategory;
+            resource.relation = existingrelation;
+            resource.typeR = existingtype;
+
+            resource.id = id;
 
             _context.Entry(resource).State = EntityState.Modified;
 
