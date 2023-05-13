@@ -1,8 +1,11 @@
 ﻿using Backend_Ressource_Relationnel.Models;
+using Backend_Ressource_Relationnel.Properties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -33,13 +36,13 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User model)
         {
-            var user = await _userManager.FindByNameAsync(model.name);
+            var user = await _userManager.FindByNameAsync(model.Email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.PasswordHash))
             {
                 var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.name),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -61,6 +64,39 @@ namespace Backend_Ressource_Relationnel.Controllers
             }
             return Unauthorized();
         }
+
+        /*public async Task<IActionResult> Login(LoginContext model)
+        {
+            var user = await _signInManager.UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                if (result.Succeeded)
+                {
+                    var authClaims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                        new Claim(JwtRegisteredClaimNames.Jti, System.Guid.NewGuid().ToString()),
+                    };
+
+                    var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+                    var token = new JwtSecurityToken(
+                        issuer: _configuration["JWT:ValidIssuer"],
+                        audience: _configuration["JWT:ValidAudience"],
+                        expires: DateTime.UtcNow.AddHours(3),
+                        claims: authClaims,
+                        signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                        );
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = token.ValidTo
+                    });
+                }
+            }
+            return Unauthorized();
+        }*/
 
         // GET: api/<UserController>
         [HttpGet]
@@ -93,7 +129,7 @@ namespace Backend_Ressource_Relationnel.Controllers
                 Email = model.Email,
                 birthday = model.birthday,
                 PhoneNumber = model.PhoneNumber,
-                LockoutEnd= DateTime.Now,
+                LockoutEnd = DateTime.Now,
                 id_role = 1
             };
 
@@ -125,10 +161,19 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, User user)
         {
+
             if (id != user.Id)
             {
                 return BadRequest();
             }
+
+            var existerole = await _context.role.FindAsync(user.id_role);
+            if (existerole != null)
+            {
+                NotFound("Le role existe pas");
+            }
+            user.role = existerole;
+
 
             _context.Entry(user).State = EntityState.Modified;
 
@@ -153,6 +198,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrateur,Super-Administrateur")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.user.FindAsync(id);

@@ -27,6 +27,9 @@ namespace Backend_Ressource_Relationnel.Models
         [EmailAddress]
         public override string UserName { get; set; }
 
+        [EmailAddress]
+        public override string Email { get; set; }
+
         //**** Jointure Role Table ****//
         /*
         public int id_role { get; set; }
