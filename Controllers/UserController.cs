@@ -40,13 +40,19 @@ namespace Backend_Ressource_Relationnel.Controllers
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.PasswordHash))
             {
-                var authClaims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
+                /*    var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };*/
+                var authClaims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString() ),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hgfhhgfghghfgfgffhgfhg"));
 
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],
@@ -161,7 +167,6 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, User user)
         {
-
             if (id != user.Id)
             {
                 return BadRequest();
@@ -173,7 +178,6 @@ namespace Backend_Ressource_Relationnel.Controllers
                 NotFound("Le role existe pas");
             }
             user.role = existerole;
-
 
             _context.Entry(user).State = EntityState.Modified;
 

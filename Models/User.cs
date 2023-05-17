@@ -16,8 +16,8 @@ namespace Backend_Ressource_Relationnel.Models
         [DataType(DataType.Date)]
         public DateTime birthday { get; set; }
 
-        [Phone]
-        public string PhoneNumber { get; set; }
+        //[Phone]
+        //public string PhoneNumber { get; set; }
 
         //public string email { get; set; }
 
