@@ -54,12 +54,12 @@ namespace Backend_Ressource_Relationnel
             /* Contrainte favorie */
 
             modelBuilder.Entity<Favorite>()
-                .HasOne(f => f.user)
+                .HasOne(f => f.id_user)
                 .WithMany()
                 .HasForeignKey(f => f.id_user);
 
             modelBuilder.Entity<Favorite>()
-                .HasOne(f => f.resource)
+                .HasOne(f => f.id_resource)
                 .WithMany()
                 .HasForeignKey(f => f.id_resource);
         }

@@ -34,7 +34,7 @@ namespace Backend_Ressource_Relationnel.Controllers
 
         // LOGIN USER
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User model)
+        public async Task<IActionResult> Login([FromBody] Login model)
         {
             var user = await _userManager.FindByNameAsync(model.Email);
 
@@ -64,6 +64,10 @@ namespace Backend_Ressource_Relationnel.Controllers
 
                 return Ok(new
                 {
+                    user.Id,
+                    user.Email,
+                    user.PasswordHash,
+                    user.id_role,
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
@@ -159,6 +163,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
+            //userId
             await _signInManager.SignOutAsync();
             return Ok();
         }

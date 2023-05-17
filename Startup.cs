@@ -1,9 +1,13 @@
 ﻿using Backend_Ressource_Relationnel.Models;
+using Jose;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Net;
+using System.Text;
 
 namespace Backend_Ressource_Relationnel
 {
@@ -48,6 +52,35 @@ namespace Backend_Ressource_Relationnel
         // Test de connexion en affichant la liste des fichiers du répertoire racine
         var fileList = _webClient.DownloadString(ftpUrl);
         Console.WriteLine($"Liste des fichiers du répertoire racine du serveur FTP : {fileList}");*/
+
+            /***********  Jwt  *************/
+
+            // Configuration de JWT (JSON Web Token)
+            /*var jwtSettings = Configuration.GetSection("JwtSettings");
+            services.Configure<JwtSettings>(jwtSettings);
+            var jwtSettingsOptions = jwtSettings.Get<JwtSettings>();
+            var key = Encoding.ASCII.GetBytes(jwtSettingsOptions.SecretKey);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettingsOptions.ValidIssuer,
+                    ValidAudience = jwtSettingsOptions.ValidAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });*/
+
+            /*********************************************************/
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
