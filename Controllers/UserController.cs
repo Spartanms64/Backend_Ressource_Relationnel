@@ -119,7 +119,7 @@ namespace Backend_Ressource_Relationnel.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.user.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.user.Include(u => u.role).FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
                 return NotFound();

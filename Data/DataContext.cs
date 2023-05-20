@@ -18,11 +18,13 @@ namespace Backend_Ressource_Relationnel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /* Contrainte Resource */
-            modelBuilder.Entity<Resource>()
+            /*modelBuilder.Entity<Resource>()
                 .HasOne(r => r.category)
                 .WithMany()
-                .HasForeignKey(r => r.id_category);
-
+                .HasForeignKey(r => r.id_category);*/
+            //modelBuilder.Entity<Resource>().HasOne().WithMany().HasForeignKey(r => r.id_category);
+            //modelBuilder.Entity<Resource>().HasAlternateKey(r => r.id_category);
+            modelBuilder.Entity<Resource>().HasKey(r => r.category);
             modelBuilder.Entity<Resource>()
                 .HasOne(r => r.typeR)
                 .WithMany()
