@@ -140,6 +140,9 @@ namespace Backend_Ressource_Relationnel.Controllers
                 birthday = model.birthday,
                 PhoneNumber = model.PhoneNumber,
                 LockoutEnd = DateTime.Now,
+                TwoFactorEnabled = false,
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false,
                 id_role = 1
             };
 
