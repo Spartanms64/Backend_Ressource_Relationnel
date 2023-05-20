@@ -32,6 +32,7 @@ namespace Backend_Ressource_Relationnel
                 .HasOne(r => r.relation)
                 .WithMany()
                 .HasForeignKey(r => r.id_relation);
+
             /* Contrainte user */
 
             modelBuilder.Entity<User>()
@@ -54,12 +55,12 @@ namespace Backend_Ressource_Relationnel
             /* Contrainte favorie */
 
             modelBuilder.Entity<Favorite>()
-                .HasOne(f => f.id_user)
+                .HasOne(f => f.user)
                 .WithMany()
                 .HasForeignKey(f => f.id_user);
 
             modelBuilder.Entity<Favorite>()
-                .HasOne(f => f.id_resource)
+                .HasOne(f => f.resource)
                 .WithMany()
                 .HasForeignKey(f => f.id_resource);
         }
